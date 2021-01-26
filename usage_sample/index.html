@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css">
+    <script type="module">
+        import Translator from "./src/js/translator.js";
+        var translator = new Translator({
+            persist: false,
+            languages: ["de", "en", "es", "vi"],
+            defaultLanguage: "en",
+            detectLanguage: true,
+            filesLocation: "/i18n"
+            });
+
+            let lang = localStorage.getItem("language");
+            translator.load(lang);
+
+            document.querySelector("form").addEventListener("click", function(evt) {
+            if (evt.target.tagName === "INPUT") {
+                translator.load(evt.target.value);
+                localStorage.setItem("language", evt.target.value);
+            }
+        });
+
+    </script>
+  </head>
+
+  <body>
+    <div id="page_loading">
+      <img src="images/loading.svg">
+    </div>
+
+    <a href="test.html">Test</a>
+    <form>
+      <fieldset>
+        <legend>Choose a language:</legend>
+
+        <label> <input type="radio" name="lang" value="en" /> English </label>
+        <label> <input type="radio" name="lang" value="de" /> German </label>
+        <label> <input type="radio" name="lang" value="es" /> Spanish </label>
+        <label> <input type="radio" name="lang" value="vi" /> Vietnamese </label>
+      </fieldset>
+    </form>
+    <h1 data-i18n="profile" data-value="Nam|30">You are %s and %s years old</h1>
+    <main>
+      <article>
+        <h1 data-i18n="title">How To Cook A Juicy Chicken Breast</h1>
+        <p data-i18n="content">
+          There’s a big difference between juicy chicken breasts and rubbery
+          chicken breasts. Obviously, you want to avoid the latter at all costs.
+          Follow these 4 steps and you’re gold. You want to add protein to
+          favorites like Caesar salad or fix up a quick chicken salad or club
+          sandwich? Try this method and savor the results.
+        </p>
+      </article>
+      <aside>
+        <h2 data-i18n="ingredients.title">Ingredients</h2>
+        <ul>
+          <li data-i18n="ingredients.txt0">1 pound boneless chicken breasts</li>
+          <li data-i18n="ingredients.txt1">2 teaspoons olive oil</li>
+          <li data-i18n="ingredients.txt2">salt and pepper</li>
+        </ul>
+      </aside>
+    </main>
+  </body>
+</html>
